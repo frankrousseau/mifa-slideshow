@@ -991,6 +991,19 @@
       height: 48vh;
     }
 
+    /* Intro slide: full-bleed illustrated cover */
+    .slide-intro { padding: 0; }
+    .slide-intro .intro-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* hide chrome + footer on the intro slide for a clean full-screen cover */
+    .chrome, .footer-bar { transition: opacity .4s ease; }
+    body.intro-active .chrome,
+    body.intro-active .footer-bar { opacity: 0; }
+
     /* Bridge slide: scattered tools -> one place */
     .consolidate {
       display: flex; align-items: center; justify-content: center;
@@ -1044,13 +1057,8 @@
   </div>
 
   <!-- ============= SLIDE 1 — Logo ============= -->
-  <section class="slide slide-logo" data-slide="1">
-    <div class="logo-stack">
-      <img class="kitsu-mark" src="./assets/kitsu.svg" alt="" onerror="this.remove()">
-      <div class="wordmark">KITSU</div>
-      <div class="divider"></div>
-      <div class="tagline">Production Collaboration <em>·</em> Animation &amp; VFX</div>
-    </div>
+  <section class="slide slide-intro" data-slide="1">
+    <img class="intro-img" src="./intro_slide.png" alt="" onerror="this.remove()">
   </section>
 
   <!-- ============= SLIDE 2 — Problem ============= -->
@@ -1211,40 +1219,39 @@
   </section>
 
 
-  <!-- ============= SLIDE 6 — Features ============= -->
-  <section class="slide" data-slide="6">
-    <div class="eyebrow">What we bring</div>
-    <h1>Everything in your studio is <em>connected</em></h1>
-    <div class="features">
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: play-circle -->
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-        </div>
-        <h3>Review</h3>
-        <div class="desc">Frame-accurate annotations, threaded comments,
-        playlists shared with a single link.</div>
-        <div class="tags"><span>Annotations</span><span>Comments</span><span>Playlists</span></div>
+  <!-- ============= SLIDE 11 — Posters ============= -->
+  <section class="slide" data-slide="11">
+    <div class="eyebrow">Made with Kitsu</div>
+    <div class="poster-row six">
+      <div class="poster" style="--ph-a:#2f6e7a;--ph-b:#0c1c20">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-flow.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Flow</div><div class="sub">3D feature</div></div>
       </div>
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: bar-chart-3 -->
-          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-        </div>
-        <h3>Track</h3>
-        <div class="desc">Schedules, budgets, timesheets, your team is always
-        up to date.</div>
-        <div class="tags"><span>Schedule</span><span>Budgets</span><span>Reports</span></div>
+      <div class="poster" style="--ph-a:#6e4a8a;--ph-b:#160e22">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-arco.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Arco</div><div class="sub">2D feature</div></div>
       </div>
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: git-fork -->
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
-        </div>
-        <h3>Plug</h3>
-        <div class="desc">Open API, Python Client, Plugins, fully integrated to
-        your pipeline.</div>
-        <div class="tags"><span>API</span><span>Plugins</span><span>Open source</span></div>
+      <div class="poster" style="--ph-a:#5e4a2f;--ph-b:#1a140c">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-seven-bears.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Seven Bears</div><div class="sub">3D series</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#2f7a5e;--ph-b:#0c1a14">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-wakfu.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Wakfu</div><div class="sub">2D series</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#2f5e7a;--ph-b:#0c141a">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-coop-troop.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Coop Troop</div><div class="sub">3D pre-school</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#7a2f5e;--ph-b:#1a0c16">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-totally-spies.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Totally Spies</div><div class="sub">2D pre-school</div></div>
       </div>
     </div>
   </section>
@@ -1435,48 +1442,11 @@
       <div class="logo-cell"><img class="sm" src="./assets/studios/logo-gobelins.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-rubika.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-ecv.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img class="big" src="./assets/studios/logo-hslu.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img src="./assets/studios/logo-hslu.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-iim.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-atelier-de-sevres.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-georges-melies.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-esra.png" alt="" onerror="this.remove()"></div>
-    </div>
-  </section>
-
-  <!-- ============= SLIDE 11 — Posters ============= -->
-  <section class="slide" data-slide="11">
-    <div class="eyebrow">Selected productions</div>
-    <div class="poster-row six">
-      <div class="poster" style="--ph-a:#2f6e7a;--ph-b:#0c1c20">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-flow.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Flow</div><div class="sub">3D feature</div></div>
-      </div>
-      <div class="poster" style="--ph-a:#6e4a8a;--ph-b:#160e22">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-arco.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Arco</div><div class="sub">2D feature</div></div>
-      </div>
-      <div class="poster" style="--ph-a:#5e4a2f;--ph-b:#1a140c">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-seven-bears.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Seven Bears</div><div class="sub">3D series</div></div>
-      </div>
-      <div class="poster" style="--ph-a:#2f7a5e;--ph-b:#0c1a14">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-wakfu.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Wakfu</div><div class="sub">2D series</div></div>
-      </div>
-      <div class="poster" style="--ph-a:#2f5e7a;--ph-b:#0c141a">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-coop-troop.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Coop Troop</div><div class="sub">3D pre-school</div></div>
-      </div>
-      <div class="poster" style="--ph-a:#7a2f5e;--ph-b:#1a0c16">
-        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
-        <img src="./assets/poster-totally-spies.jpg" alt="" onerror="this.remove()">
-        <div class="caption"><div class="title">Totally Spies</div><div class="sub">2D pre-school</div></div>
-      </div>
     </div>
   </section>
 
@@ -1732,6 +1702,7 @@
 
     function activate(i) {
       slides.forEach((s, k) => s.classList.toggle('active', k === i));
+      document.body.classList.toggle('intro-active', i === 0);
       const target = slides[i];
       target.classList.remove('enter');
       void target.offsetWidth;
