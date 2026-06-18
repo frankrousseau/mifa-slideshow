@@ -167,6 +167,7 @@
       padding: 22px 56px 26px;
       z-index: 40;
       pointer-events: none;
+      background: var(--bg);
     }
     .progress-track {
       height: 2px;
@@ -293,7 +294,7 @@
       color: var(--fg-muted);
       font-weight: 400;
       line-height: 1.5;
-      max-width: 28ch;
+      max-width: 42ch;
     }
 
     /* ============ SLIDE 3 — Screenshot ============ */
@@ -667,6 +668,7 @@
       opacity: 0.82;
     }
     /* per-logo size tiers to balance internal padding differences */
+    .logo-cell img.asis { filter: none; }   /* logo already dark-on-white */
     .logo-cell img.sm { max-width: 52%; max-height: 30%; }
     .logo-cell img.xl { max-width: 98%; max-height: 86%; }
     .logo-cell img.big {
@@ -989,17 +991,34 @@
       height: 48vh;
     }
 
+    /* Bridge slide: scattered tools -> one place */
+    .consolidate {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3.5vw; width: min(82vw, 1150px);
+    }
+    .scatter { display: grid; grid-template-columns: repeat(2, auto); gap: 16px 18px; }
+    .scatter span {
+      padding: 14px 22px; border-radius: 10px;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      box-shadow: 0 6px 20px rgba(37,40,46,0.05);
+      color: var(--fg-muted); font-weight: 600; font-size: 1.05rem; white-space: nowrap;
+    }
+    .bridge-arrow { width: clamp(56px, 7vw, 110px); height: auto; flex: none; }
+    .one-place { display: flex; flex-direction: column; align-items: center; gap: 16px; flex: none; }
+    .one-place img { width: clamp(96px, 12vh, 140px); height: auto; }
+    .one-place-label { font-weight: 900; font-size: clamp(1.3rem, 1.8vw, 1.8rem); letter-spacing: -0.01em; }
+
     /* Open-source statement + pills */
     .lead {
       font-size: clamp(1.2rem, 1.9vw, 2rem);
       color: var(--fg-muted); font-weight: 400; line-height: 1.5;
-      max-width: 30ch; text-align: center; margin-bottom: 44px;
+      max-width: 46ch; text-align: center; margin-bottom: 44px;
     }
     .lead em { color: var(--green); font-style: normal; font-weight: 700; }
-    .pill-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .pill-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
     .pill-row span {
-      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.03em;
-      padding: 13px 24px; border-radius: 999px;
+      font-size: 1.15rem; font-weight: 700; letter-spacing: 0.03em;
+      padding: 18px 32px; border-radius: 999px;
       background: var(--bg-elevated); border: 1px solid var(--border);
       box-shadow: 0 6px 22px rgba(37,40,46,0.06);
       color: var(--fg);
@@ -1037,7 +1056,7 @@
   <!-- ============= SLIDE 2 — Problem ============= -->
   <section class="slide" data-slide="2">
     <div class="eyebrow">The context changed</div>
-    <h1>The way animation is made <em>just shifted</em></h1>
+    <h1>The way animation is made has <em>shifted</em></h1>
     <div class="keyword-grid">
       <div class="keyword">
         <div class="icon-wrap">
@@ -1068,8 +1087,27 @@
           <!-- lucide: network -->
           <svg viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
         </div>
-        <div class="label">Co-production became the norm</div>
+        <div class="label">Co-productions multiplied</div>
         <div class="sub">One film now spans vendors, cities and contracts.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= SLIDE 2b — Bridge (scattered -> one place) ============= -->
+  <section class="slide" data-slide="2b">
+    <div class="eyebrow">Today</div>
+    <h1>Production is scattered across <em>a dozen tools</em></h1>
+    <div class="consolidate">
+      <div class="scatter">
+        <span>Spreadsheets</span><span>Emails</span><span>Shared drives</span>
+        <span>Chat threads</span><span>Trackers</span><span>Sticky notes</span>
+      </div>
+      <svg class="bridge-arrow" viewBox="0 0 64 24" fill="none" stroke="#25282E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12h54"/><path d="M48 4l10 8-10 8"/>
+      </svg>
+      <div class="one-place">
+        <img src="./assets/kitsu.svg" alt="" onerror="this.remove()">
+        <div class="one-place-label">One place</div>
       </div>
     </div>
   </section>
@@ -1216,7 +1254,7 @@
     <div class="eyebrow">Built for everyone</div>
     <h1>One tool, <em>every role</em></h1>
     <div class="diagram-wrap">
-      <svg class="diagram" viewBox="0 0 800 648">
+      <svg class="diagram" viewBox="0 0 800 620">
         <g class="hex-line">
           <polygon points="400,80 632,200 632,440 400,560 168,440 168,200"/>
           <line x1="400" y1="80"  x2="400" y2="560"/>
@@ -1224,21 +1262,12 @@
           <line x1="632" y1="440" x2="168" y2="200"/>
         </g>
         <image class="center-mark" href="./assets/kitsu.svg" x="345" y="265" width="110" height="110"/>
-        <!-- role avatars at each vertex -->
-        <g>
-          <circle cx="400" cy="80"  r="30" fill="#fff"/><image href="./assets/avatars/avatar-1.svg" x="378" y="47"  width="44" height="66"/>
-          <circle cx="632" cy="200" r="30" fill="#fff"/><image href="./assets/avatars/avatar-2.svg" x="610" y="167" width="44" height="66"/>
-          <circle cx="632" cy="440" r="30" fill="#fff"/><image href="./assets/avatars/avatar-6.svg" x="610" y="407" width="44" height="66"/>
-          <circle cx="400" cy="560" r="30" fill="#fff"/><image href="./assets/avatars/avatar-5.svg" x="378" y="527" width="44" height="66"/>
-          <circle cx="168" cy="440" r="30" fill="#fff"/><image href="./assets/avatars/avatar-4.svg" x="146" y="407" width="44" height="66"/>
-          <circle cx="168" cy="200" r="30" fill="#fff"/><image href="./assets/avatars/avatar-3.svg" x="146" y="167" width="44" height="66"/>
-        </g>
-        <text x="400" y="34"  text-anchor="middle" font-size="22">Production</text>
-        <text x="666" y="205" text-anchor="start"  font-size="22">Supervisors</text>
-        <text x="666" y="448" text-anchor="start"  font-size="22">Directors</text>
-        <text x="400" y="618" text-anchor="middle" font-size="22">Clients</text>
-        <text x="134" y="448" text-anchor="end"    font-size="22">Accounting</text>
-        <text x="134" y="205" text-anchor="end"    font-size="22">Artists</text>
+        <text x="400" y="58"  text-anchor="middle" font-size="22">Production</text>
+        <text x="654" y="206" text-anchor="start"  font-size="22">Supervisors</text>
+        <text x="654" y="446" text-anchor="start"  font-size="22">Directors</text>
+        <text x="400" y="595" text-anchor="middle" font-size="22">Clients</text>
+        <text x="146" y="446" text-anchor="end"    font-size="22">Accounting</text>
+        <text x="146" y="206" text-anchor="end"    font-size="22">Artists</text>
       </svg>
     </div>
   </section>
@@ -1261,15 +1290,14 @@
         <text x="402.5" y="565" text-anchor="middle" font-size="22">Producer</text>
       </svg>
     </div>
-    <div class="sync-caption">A co-production on one shared backbone: each studio
-    keeps its own instance and syncs only the shots they share. No lock-in, no
-    data handed over.</div>
+    <div class="sync-caption">Each studio keeps its own instance and syncs only
+    what they share.</div>
   </section>
 
   <!-- ============= SLIDE 8b — Infrastructure ============= -->
   <section class="slide slide-infra" data-slide="8b">
     <div class="eyebrow">Infrastructure</div>
-    <h1>Built for <em>scale and control</em></h1>
+    <h1>Built to scale, <em>on your terms</em></h1>
     <div class="features">
       <div class="feature-card">
         <div class="icon-wrap">
@@ -1297,8 +1325,8 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01"/><path d="M7 16.5h.01"/></svg>
         </div>
         <h3>On-premise</h3>
-        <div class="desc">Run multiple isolated instances on your own
-        infrastructure, fully under your control.</div>
+        <div class="desc">Run one or multiple isolated instances on your own
+        infrastructure, fully self-hosted.</div>
         <div class="tags"><span>Self-hosted</span><span>Multi-instance</span></div>
       </div>
     </div>
@@ -1307,29 +1335,30 @@
   <!-- ============= SLIDE 8c — Open source ============= -->
   <section class="slide" data-slide="8c">
     <div class="eyebrow">No lock-in</div>
-    <h1>Open source, <em>by principle</em></h1>
-    <div class="lead">Cloud or self-hosted. <em>Your</em> instance, <em>your</em> data, yours to keep.</div>
+    <h1>Run it <em>your way</em></h1>
+    <div class="lead">You get your own instance, deployed on our cloud,
+    on-premise, or fully self-hosted.</div>
     <div class="pill-row">
-      <span>AGPL licensed</span>
-      <span><em>700+</em> GitHub stars</span>
+      <span>Portable</span>
+      <span>Open source</span>
+      <span><em>600+</em> GitHub stars</span>
       <span><em>20+</em> contributors</span>
-      <span>Public roadmap</span>
     </div>
   </section>
 
   <!-- ============= SLIDE 8d — Why Kitsu ============= -->
   <section class="slide" data-slide="8d">
-    <div class="eyebrow">Why teams switch</div>
-    <h1>Modern where it <em>matters</em></h1>
+    <div class="eyebrow">Coming from another tool?</div>
+    <h1>Why teams <em>switch</em></h1>
     <div class="features">
       <div class="feature-card">
         <div class="icon-wrap">
           <!-- lucide: zap -->
           <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
-        <h3>Modern platform</h3>
-        <div class="desc">Built on today's web standards. Fast, reliable, and
-        evolving every month, no legacy baggage.</div>
+        <h3>The modern one</h3>
+        <div class="desc">Built on today's web standards and shipping every month.
+        No legacy weighing you down.</div>
         <div class="tags"><span>2026 stack</span><span>Always current</span></div>
       </div>
       <div class="feature-card">
@@ -1337,19 +1366,19 @@
           <!-- lucide: sparkles -->
           <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg>
         </div>
-        <h3>Effortless to use</h3>
-        <div class="desc">A clean, standard interface. Easy onboarding, teams up
-        and productive in days, not weeks.</div>
-        <div class="tags"><span>Intuitive</span><span>Quick to learn</span></div>
+        <h3>Truly ergonomic</h3>
+        <div class="desc">A clean, familiar interface. Teams onboard in days,
+        not months.</div>
+        <div class="tags"><span>Intuitive</span><span>Fast onboarding</span></div>
       </div>
       <div class="feature-card">
         <div class="icon-wrap">
           <!-- lucide: share-2 -->
           <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
         </div>
-        <h3>Built for distributed work</h3>
-        <div class="desc">Multi-studio, multi-region, remote-first since day one,
-        not bolted on afterwards.</div>
+        <h3>Made for distributed teams</h3>
+        <div class="desc">The only one designed for multi-studio, multi-region and
+        remote, from day one.</div>
         <div class="tags"><span>Multi-studio</span><span>Remote-first</span></div>
       </div>
     </div>
@@ -1361,9 +1390,9 @@
     <h1>Grown by the <em>community</em></h1>
     <div class="numbers-stack">
       <div class="stat">
-        <div class="num">300<span class="plus">+</span></div>
-        <div class="label">Self-hosted instances</div>
-        <div class="desc">Studios running their own Kitsu, their own way.</div>
+        <div class="num">400<span class="plus">+</span></div>
+        <div class="label">Studios worldwide</div>
+        <div class="desc">On our cloud, on-premise or self-hosted.</div>
       </div>
       <div class="stat">
         <div class="num">25<span class="plus">+</span></div>
@@ -1392,8 +1421,8 @@
       <div class="logo-cell"><img class="big" src="./assets/logo-ankama.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/logo-normaal.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/logo-mdhr.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-gobelins.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img class="xl" src="./assets/logo-rubika.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-ellipse.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="asis big" src="./assets/logo-chouettecie.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/logo-uniko.png" alt="" onerror="this.remove()"></div>
     </div>
   </section>
@@ -1401,16 +1430,16 @@
   <!-- ============= SLIDE 10b — Schools ============= -->
   <section class="slide" data-slide="10b">
     <div class="eyebrow">The next generation</div>
-    <h1>Students already learn on <em>Kitsu</em></h1>
+    <h1>Students learn on <em>Kitsu</em></h1>
     <div class="logo-grid rows2">
-      <div class="logo-cell"><img class="big" src="./assets/studios/logo-gobelins.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="sm" src="./assets/studios/logo-gobelins.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-rubika.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-ecv.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-hslu.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-iim.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-atelier-de-sevres.png" alt="" onerror="this.remove()"></div>
       <div class="logo-cell"><img class="big" src="./assets/studios/logo-georges-melies.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img class="big" src="./assets/studios/logo-ynov.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-esra.png" alt="" onerror="this.remove()"></div>
     </div>
   </section>
 
@@ -1485,7 +1514,7 @@
 
   <!-- ============= SLIDE 12 — What's new ============= -->
   <section class="slide slide-news" data-slide="12">
-    <div class="eyebrow">2026 release</div>
+    <div class="eyebrow">An update for our beloved users</div>
     <h1>What's new in <em>Kitsu</em></h1>
     <div class="news-grid">
       <div class="news-item">
@@ -1494,7 +1523,7 @@
           <svg viewBox="0 0 24 24"><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/><path d="m16 12 5 3-5 3v-6Z"/></svg>
         </div>
         <h3>Enhanced playlists</h3>
-        <p>Now with guest playlists, faster playback, and vectorized annotations.</p>
+        <p>Now with guest playlists, faster playback, onion skins, shapes and eraser.</p>
       </div>
       <div class="news-item">
         <div class="icon-wrap">
