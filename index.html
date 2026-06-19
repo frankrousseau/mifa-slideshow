@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Kitsu — FMX 2026</title>
+  <title>Kitsu · MIFA 2026</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/kitsu.svg">
+  <link rel="apple-touch-icon" href="./assets/kitsu.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -16,18 +18,30 @@
       --green-dark: #008732;
       --purple: #8A53D1;
 
-      /* Surface — Kitsu app dark theme */
-      --bg: #25282E;            /* k-dark-grey */
-      --bg-elevated: #2D2E36;
-      --bg-soft: #36393F;       /* k-dark-grey-2 */
-      --bg-deep: #202225;       /* k-black */
-      --border: rgba(255,255,255,0.08);
-      --border-strong: rgba(255,255,255,0.16);
+      /* Illustrated Kitsu palette — pastel chips + charcoal line-art */
+      --ink: #3F4248;
+      --chip-coral: #FAD4D1;
+      --chip-green: #D6EDB8;
+      --chip-sky:   #CDE9F7;
+      --chip-lilac: #E7D4F2;
+      /* deep tone of each chip, used for the icon stroke (duotone) */
+      --ink-coral: #C9544B;
+      --ink-green: #4E8A2E;
+      --ink-sky:   #2C6E9E;
+      --ink-lilac: #7A4BA8;
+
+      /* Surface — clean white theme, coherent with cg-wire.com */
+      --bg: #FFFFFF;
+      --bg-elevated: #FFFFFF;   /* cards separated by border + soft shadow */
+      --bg-soft: #F1F1F3;
+      --bg-deep: #E5E5E9;
+      --border: rgba(37,40,46,0.10);
+      --border-strong: rgba(37,40,46,0.18);
 
       /* Text */
-      --fg: #FEFEFE;
-      --fg-muted: rgba(255,255,255,0.62);
-      --fg-faint: rgba(255,255,255,0.38);
+      --fg: #25282E;
+      --fg-muted: rgba(37,40,46,0.66);
+      --fg-faint: rgba(37,40,46,0.42);
 
       --duration: 10s;
       --enter: 800ms;
@@ -38,7 +52,7 @@
     html, body {
       width: 100%; height: 100%;
       overflow: hidden;
-      background: #000;
+      background: var(--bg);
       color: var(--fg);
       font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -55,7 +69,7 @@
     .stage::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(37,40,46,0.06) 100%);
       pointer-events: none;
       z-index: 5;
     }
@@ -79,6 +93,8 @@
       display: grid; place-items: center;
     }
     .chrome .brand .badge svg { width: 100%; height: 100%; }
+    .chrome .brand .brand-sep { color: var(--fg-faint); margin: 0 -4px; }
+    .chrome .brand .brand-tag { font-weight: 700; letter-spacing: 0.14em; color: var(--fg-faint); }
     .chrome .meta {
       font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
       font-weight: 700;
@@ -155,10 +171,11 @@
       padding: 22px 56px 26px;
       z-index: 40;
       pointer-events: none;
+      background: var(--bg);
     }
     .progress-track {
       height: 2px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(37,40,46,0.10);
       position: relative;
       overflow: hidden;
       border-radius: 2px;
@@ -195,7 +212,7 @@
     }
     .counter-row .dots span {
       width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.14);
+      background: rgba(37,40,46,0.16);
       transition: background 300ms;
     }
     .counter-row .dots span.on { background: var(--green); }
@@ -220,7 +237,7 @@
       letter-spacing: -0.04em;
       font-size: clamp(4.5rem, 9vw, 8.5rem);
       line-height: 1;
-      color: #fff;
+      color: var(--fg);
     }
     .slide-logo .tagline {
       font-size: clamp(0.95rem, 1.1vw, 1.1rem);
@@ -263,10 +280,10 @@
       display: grid; place-items: center;
     }
     .keyword .icon-wrap svg {
-      width: 32px; height: 32px;
-      stroke: var(--green);
+      width: 46px; height: 46px;
+      stroke: var(--chip-ink, var(--ink));
       fill: none;
-      stroke-width: 2;
+      stroke-width: 1.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -281,7 +298,7 @@
       color: var(--fg-muted);
       font-weight: 400;
       line-height: 1.5;
-      max-width: 28ch;
+      max-width: 42ch;
     }
 
     /* ============ SLIDE 3 — Screenshot ============ */
@@ -289,13 +306,43 @@
       border-radius: 14px;
       overflow: hidden;
       background: var(--bg-elevated);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 0 1px var(--border);
+      box-shadow: 0 30px 70px rgba(37,40,46,0.18), 0 0 0 1px var(--border);
       position: relative;
     }
     .screenshot-frame img {
       width: 100%; height: 100%;
       display: block;
       position: relative; z-index: 2;
+    }
+    /* Central screenshot with title overlaid */
+    .slide-shot { padding: 0; }
+    .slide-shot .screenshot-frame {
+      position: absolute;
+      inset: 100px 0 80px;       /* fill between the top chrome and bottom footer */
+      width: auto; height: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .slide-shot .screenshot-frame img { object-fit: cover; }
+    .slide-shot .shot-title {
+      position: absolute;
+      left: 50%; top: 80%;                       /* lower third of the image */
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      max-width: 80%;
+      padding: 28px 56px;
+      border-radius: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      background: rgba(18,20,24,0.82);           /* dark glass, mostly opaque */
+      border: 1px solid rgba(255,255,255,0.16);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+    .slide-shot .shot-title .eyebrow { margin-bottom: 10px; color: var(--green-light); }
+    .slide-shot .shot-title h1 {
+      color: #fff; text-align: center; margin-bottom: 0; max-width: 24ch;
+      font-size: clamp(2rem, 3.4vw, 3.6rem);
     }
     /* Rich placeholder mock UI */
     .mock-ui {
@@ -467,10 +514,10 @@
       display: grid; place-items: center;
     }
     .feature-card .icon-wrap svg {
-      width: 30px; height: 30px;
-      stroke: var(--green);
+      width: 40px; height: 40px;
+      stroke: var(--chip-ink, var(--ink));
       fill: none;
-      stroke-width: 2;
+      stroke-width: 1.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -496,7 +543,7 @@
       text-transform: uppercase;
       padding: 5px 10px;
       border-radius: 4px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(37,40,46,0.05);
       color: var(--fg-muted);
       border: 1px solid var(--border);
     }
@@ -522,8 +569,10 @@
       stroke: var(--border-strong);
     }
     .diagram .hex-line {
-      stroke: var(--green);
-      stroke-width: 1.5;
+      stroke: var(--ink);
+      stroke-width: 2.6;
+      stroke-linejoin: round;
+      stroke-linecap: round;
       fill: none;
     }
 
@@ -616,26 +665,40 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      max-width: 78%;
-      max-height: 70%;
+      max-width: 64%;
+      max-height: 40%;         /* height-driven so every logo reads at a similar scale */
       object-fit: contain;
-      opacity: 0.92;
+      filter: brightness(0);   /* studio logos are white-on-transparent; darken for white bg */
+      opacity: 0.82;
+    }
+    /* per-logo size tiers to balance internal padding differences */
+    .logo-cell img.asis { filter: none; }   /* logo already dark-on-white */
+    .logo-cell img.sm { max-width: 52%; max-height: 30%; }
+    .logo-cell img.xl { max-width: 98%; max-height: 86%; }
+    .logo-cell img.big {
+      max-width: 80%;
+      max-height: 58%;
     }
 
     /* ============ SLIDE 11 — Posters ============ */
     .poster-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      width: min(85vw, 1300px);
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      width: min(88vw, 1500px);
       height: 62vh;
+    }
+    .poster-row.six {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+      width: min(92vw, 1680px);
     }
     .poster {
       position: relative;
       border-radius: 8px;
       overflow: hidden;
       background: var(--bg-elevated);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+      box-shadow: 0 24px 48px rgba(37,40,46,0.22);
     }
     .poster .placeholder {
       position: absolute; inset: 0;
@@ -689,6 +752,24 @@
       object-fit: cover;
       display: block;
     }
+    /* Caption always on top of image or placeholder */
+    .poster .caption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      z-index: 3;
+      padding: 22px 22px 20px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.82));
+    }
+    .poster .caption .title {
+      font-size: 1.15rem; font-weight: 900;
+      letter-spacing: 0.03em; line-height: 1.05;
+      color: #fff; text-transform: uppercase;
+    }
+    .poster .caption .sub {
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      margin-top: 6px;
+    }
 
     /* ============ SLIDE 12 — What's new ============ */
     .news-grid {
@@ -721,10 +802,10 @@
       display: grid; place-items: center;
     }
     .news-item .icon-wrap svg {
-      width: 26px; height: 26px;
-      stroke: var(--green);
+      width: 34px; height: 34px;
+      stroke: var(--chip-ink, var(--ink));
       fill: none;
-      stroke-width: 2;
+      stroke-width: 1.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
@@ -801,7 +882,7 @@
       border-radius: 16px;
       padding: 18px;
       position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
+      box-shadow: 0 24px 56px rgba(37,40,46,0.18), 0 0 0 1px var(--border);
     }
     .qr-frame > img {
       position: absolute; inset: 18px;
@@ -820,15 +901,15 @@
       gap: 1px;
     }
     .qr-fake .cell {
-      background: var(--bg);
+      background: #25282E;   /* QR modules stay dark regardless of theme */
     }
     .qr-fake .finder {
       grid-column: span 7;
       grid-row: span 7;
       background:
         linear-gradient(#fff 0 0) padding-box content-box,
-        var(--bg);
-      border: 6px solid var(--bg);
+        #25282E;
+      border: 6px solid #25282E;
       padding: 10px;
       position: relative;
     }
@@ -836,7 +917,7 @@
       content: '';
       position: absolute;
       inset: 6px;
-      background: var(--bg);
+      background: #25282E;
     }
     .qr-fake .finder.tl { grid-column: 1 / span 7; grid-row: 1 / span 7; }
     .qr-fake .finder.tr { grid-column: 15 / span 7; grid-row: 1 / span 7; }
@@ -862,6 +943,114 @@
       color: var(--fg-muted);
     }
 
+    /* ---- Infra slide: cgwire-style hex grid fading out at the bottom ---- */
+    .slide-infra { isolation: isolate; }
+    .slide-infra::before {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 78%;
+      z-index: 0;
+      pointer-events: none;
+      background: url("./assets/hex-grid.svg") center bottom / cover no-repeat;
+      opacity: 0.14;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+      mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    }
+    .slide-infra > * { position: relative; z-index: 1; }
+
+    /* ---- "What's new" slide: pastel confetti fading out at the bottom ---- */
+    .slide-news { isolation: isolate; }
+    .slide-news::before {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 78%;
+      z-index: 0;
+      pointer-events: none;
+      background: url("./assets/confetti.svg") center bottom / cover no-repeat;
+      opacity: 0.5;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+      mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    }
+    .slide-news > * { position: relative; z-index: 1; }
+
+    /* ---- Card lift on white background ---- */
+    .feature-card, .news-item, .logo-cell, .keyword-grid {
+      box-shadow: 0 6px 22px rgba(37,40,46,0.06);
+    }
+
+    /* ---- Illustrated chips: rotate pastel backgrounds per item ---- */
+    .keyword-grid .keyword:nth-child(1) .icon-wrap { background: var(--chip-coral); --chip-ink: var(--ink-coral); }
+    .keyword-grid .keyword:nth-child(2) .icon-wrap { background: var(--chip-green); --chip-ink: var(--ink-green); }
+    .keyword-grid .keyword:nth-child(3) .icon-wrap { background: var(--chip-sky);   --chip-ink: var(--ink-sky); }
+    .keyword-grid .keyword:nth-child(4) .icon-wrap { background: var(--chip-lilac); --chip-ink: var(--ink-lilac); }
+    .features .feature-card:nth-child(1) .icon-wrap { background: var(--chip-coral); --chip-ink: var(--ink-coral); }
+    .features .feature-card:nth-child(2) .icon-wrap { background: var(--chip-green); --chip-ink: var(--ink-green); }
+    .features .feature-card:nth-child(3) .icon-wrap { background: var(--chip-sky);   --chip-ink: var(--ink-sky); }
+    .news-grid .news-item:nth-child(1) .icon-wrap { background: var(--chip-green); --chip-ink: var(--ink-green); }
+    .news-grid .news-item:nth-child(2) .icon-wrap { background: var(--chip-sky);   --chip-ink: var(--ink-sky); }
+    .news-grid .news-item:nth-child(3) .icon-wrap { background: var(--chip-lilac); --chip-ink: var(--ink-lilac); }
+
+    .logo-grid.rows2 {
+      grid-template-rows: repeat(2, 1fr);
+      height: 48vh;
+    }
+
+    /* Intro slide: full-bleed illustrated cover */
+    .slide-intro { padding: 0; }
+    .slide-intro .intro-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* hide chrome + footer on the intro slide for a clean full-screen cover */
+    .chrome, .footer-bar { transition: opacity .4s ease; }
+    body.intro-active .chrome,
+    body.intro-active .footer-bar { opacity: 0; }
+
+    /* Bridge slide: scattered tools -> one place */
+    .consolidate {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3.5vw; width: min(82vw, 1150px);
+    }
+    .scatter { display: grid; grid-template-columns: repeat(2, auto); gap: 16px 18px; }
+    .scatter span {
+      padding: 14px 22px; border-radius: 10px;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      box-shadow: 0 6px 20px rgba(37,40,46,0.05);
+      color: var(--fg-muted); font-weight: 600; font-size: 1.05rem; white-space: nowrap;
+    }
+    .bridge-arrow { width: clamp(56px, 7vw, 110px); height: auto; flex: none; }
+    .one-place { display: flex; flex-direction: column; align-items: center; gap: 16px; flex: none; }
+    .one-place img { width: clamp(96px, 12vh, 140px); height: auto; }
+    .one-place-label { font-weight: 900; font-size: clamp(1.3rem, 1.8vw, 1.8rem); letter-spacing: -0.01em; }
+    /* Variant 1: truly scattered chips */
+    .scatter.loose { display: block; position: relative; width: min(50vw, 680px); height: 440px; flex: none; }
+    .scatter.loose span { position: absolute; transform-origin: center; font-size: 1.18rem; padding: 15px 26px; }
+    /* Variant 2: convergence diagram */
+    .converge { width: min(84vw, 1150px); height: auto; max-height: 60vh; }
+    .converge text { font-family: 'Lato', sans-serif; font-weight: 600; font-size: 21px; fill: var(--fg-muted); }
+    .converge .src { fill: var(--fg); }
+    .converge .wire { stroke: rgba(37,40,46,0.22); stroke-width: 1.4; fill: none; }
+    .converge .one-label { font-weight: 900; fill: var(--fg); font-size: 24px; }
+
+    /* Open-source statement + pills */
+    .lead {
+      font-size: clamp(1.2rem, 1.9vw, 2rem);
+      color: var(--fg-muted); font-weight: 400; line-height: 1.5;
+      max-width: 46ch; text-align: center; margin-bottom: 44px;
+    }
+    .lead em { color: var(--green); font-style: normal; font-weight: 700; }
+    .pill-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .pill-row span {
+      font-size: 1.15rem; font-weight: 700; letter-spacing: 0.03em;
+      padding: 18px 32px; border-radius: 999px;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      box-shadow: 0 6px 22px rgba(37,40,46,0.06);
+      color: var(--fg);
+    }
+    .pill-row span em { color: var(--green); font-style: normal; }
+
     @media (hover: none) { html, body { cursor: auto; } }
   </style>
 </head>
@@ -876,65 +1065,87 @@
         <img src="./assets/kitsu.svg">
       </div>
       <span>Kitsu</span>
+      <span class="brand-sep">·</span>
+      <span class="brand-tag">Production tracking for animation</span>
     </div>
-    <div class="meta"><em>FMX 2026</em> &nbsp;·&nbsp; Stuttgart &nbsp;·&nbsp; Booth&nbsp;1.4</div>
+    <div class="meta"><em>MIFA 2026</em> &nbsp;·&nbsp; Annecy &nbsp;·&nbsp; Booth&nbsp;A.12</div>
   </div>
 
   <!-- ============= SLIDE 1 — Logo ============= -->
-  <section class="slide slide-logo" data-slide="1">
-    <div class="logo-stack">
-      <img class="kitsu-mark" src="./assets/kitsu.svg" alt="" onerror="this.remove()">
-      <div class="wordmark">KITSU</div>
-      <div class="divider"></div>
-      <div class="tagline">Production Collaboration <em>·</em> Animation &amp; VFX</div>
-    </div>
+  <section class="slide slide-intro" data-slide="1" data-duration="7">
+    <img class="intro-img" src="./intro_slide.png" alt="" onerror="this.remove()">
   </section>
 
   <!-- ============= SLIDE 2 — Problem ============= -->
-  <section class="slide" data-slide="2">
-    <div class="eyebrow">The Reality Today</div>
-    <h1>Productions are getting <em>more complex</em></h1>
+  <section class="slide" data-slide="2" data-duration="11">
+    <div class="eyebrow">The context changed</div>
+    <h1>Animation productions <em>changed</em></h1>
     <div class="keyword-grid">
       <div class="keyword">
         <div class="icon-wrap">
           <!-- lucide: wallet -->
           <svg viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
         </div>
-        <div class="label">Tighter budgets</div>
-        <div class="sub">Studios are doing more with less, with no quality
-        compromise.</div>
+        <div class="label">Budgets tightened</div>
+        <div class="sub">Do more with less, with no compromise on quality.</div>
       </div>
       <div class="keyword">
         <div class="icon-wrap">
           <!-- lucide: clock -->
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <div class="label">Shorter deadlines</div>
-        <div class="sub">Streaming windows compress every schedule.</div>
+        <div class="label">Schedules compressed</div>
+        <div class="sub">Streaming windows shrink every timeline.</div>
       </div>
       <div class="keyword">
         <div class="icon-wrap">
           <!-- lucide: globe -->
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
         </div>
-        <div class="label">Remote teams</div>
-        <div class="sub">Artists across every timezone, every project.</div>
+        <div class="label">Teams went remote</div>
+        <div class="sub">Artists across every timezone, on every project.</div>
       </div>
       <div class="keyword">
         <div class="icon-wrap">
           <!-- lucide: network -->
           <svg viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
         </div>
-        <div class="label">Multi-studio projects</div>
-        <div class="sub">Co-productions span vendors, cities, contracts.</div>
+        <div class="label">Co-productions multiplied</div>
+        <div class="sub">One film now spans vendors, cities and contracts.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= SLIDE 2b — Bridge (scattered -> one place) ============= -->
+  <section class="slide" data-slide="2b" data-duration="9">
+    <div class="eyebrow">Today</div>
+    <h1>Production is scattered across <em>a dozen tools</em></h1>
+    <div class="consolidate">
+      <div class="scatter loose">
+        <span style="top:2%;left:3%;transform:rotate(-8deg);opacity:.9">Spreadsheets</span>
+        <span style="top:0;left:52%;transform:rotate(6deg)">Emails</span>
+        <span style="top:15%;left:27%;transform:rotate(-4deg);opacity:.92">Shared drives</span>
+        <span style="top:11%;left:70%;transform:rotate(10deg);opacity:.85">Chat threads</span>
+        <span style="top:31%;left:7%;transform:rotate(5deg);opacity:.88">Trackers</span>
+        <span style="top:34%;left:44%;transform:rotate(-7deg)">Calendars</span>
+        <span style="top:27%;left:78%;transform:rotate(8deg);opacity:.9">PDFs</span>
+        <span style="top:51%;left:22%;transform:rotate(-10deg);opacity:.85">Sticky notes</span>
+        <span style="top:54%;left:58%;transform:rotate(7deg);opacity:.9">Whiteboards</span>
+        <span style="top:71%;left:9%;transform:rotate(4deg)">To-do lists</span>
+        <span style="top:73%;left:48%;transform:rotate(-6deg);opacity:.88">File servers</span>
+      </div>
+      <svg class="bridge-arrow" viewBox="0 0 64 24" fill="none" stroke="#25282E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12h54"/><path d="M48 4l10 8-10 8"/>
+      </svg>
+      <div class="one-place">
+        <img src="./assets/kitsu.svg" alt="" onerror="this.remove()">
+        <div class="one-place-label">One place</div>
       </div>
     </div>
   </section>
 
   <!-- ============= SLIDE 3 — Screenshot ============= -->
-  <section class="slide" data-slide="3">
-    <div class="eyebrow">New solution</div>
-    <h1>An unified <em>workspace</em></h1>
+  <section class="slide slide-shot" data-slide="3" data-duration="8">
     <div class="screenshot-frame">
       <div class="mock-ui" aria-hidden="true">
         <div class="topbar">
@@ -986,13 +1197,15 @@
         </div>
       </div>
       <img src="./assets/screenshot-ui.png" alt="" onerror="this.remove()">
+      <div class="shot-title">
+        <div class="eyebrow">New solution</div>
+        <h1>A unified <em>workspace</em></h1>
+      </div>
     </div>
   </section>
 
   <!-- ============= SLIDE 4 — Review engine ============= -->
-  <section class="slide" data-slide="4">
-    <div class="eyebrow">Built-in review</div>
-    <h1>Powered by a <em>review engine</em></h1>
+  <section class="slide slide-shot" data-slide="4" data-duration="8">
     <div class="screenshot-frame">
       <div class="mock-ui" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#202225,#36393F)">
         <div style="width:88px;height:88px;border-radius:50%;background:rgba(0,178,66,0.22);display:flex;align-items:center;justify-content:center;">
@@ -1000,14 +1213,16 @@
         </div>
       </div>
       <img src="./assets/review.png" alt="" onerror="this.remove()">
+      <div class="shot-title">
+        <div class="eyebrow">Built-in review</div>
+        <h1>Powered by a <em>review engine</em></h1>
+      </div>
     </div>
   </section>
 
 
   <!-- ============= SLIDE 5 — Smart scheduling ============= -->
-  <section class="slide" data-slide="5">
-    <div class="eyebrow">Smart scheduling</div>
-    <h1>And an easy <em>planning</em> system</h1>
+  <section class="slide slide-shot" data-slide="5" data-duration="8">
     <div class="screenshot-frame">
       <div class="mock-ui" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#202225,#36393F)">
         <div style="width:88px;height:88px;border-radius:50%;background:rgba(0,178,66,0.22);display:flex;align-items:center;justify-content:center;">
@@ -1020,50 +1235,53 @@
         </div>
       </div>
       <img src="./assets/schedule.png" alt="" onerror="this.remove()">
+      <div class="shot-title">
+        <div class="eyebrow">Smart scheduling</div>
+        <h1>And a <em>planning</em> system</h1>
+      </div>
     </div>
   </section>
 
 
-  <!-- ============= SLIDE 6 — Features ============= -->
-  <section class="slide" data-slide="6">
-    <div class="eyebrow">What we bring</div>
-    <h1>Everything in your studio is <em>connected</em></h1>
-    <div class="features">
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: play-circle -->
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-        </div>
-        <h3>Review</h3>
-        <div class="desc">Frame-accurate annotations, threaded comments,
-        playlists shared with a single link.</div>
-        <div class="tags"><span>Annotations</span><span>Comments</span><span>Shared playlists</span></div>
+  <!-- ============= SLIDE 11 — Posters ============= -->
+  <section class="slide" data-slide="11" data-duration="7">
+    <div class="eyebrow">Made with Kitsu</div>
+    <div class="poster-row six">
+      <div class="poster" style="--ph-a:#2f6e7a;--ph-b:#0c1c20">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-flow.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Flow</div><div class="sub">3D feature</div></div>
       </div>
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: bar-chart-3 -->
-          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-        </div>
-        <h3>Track</h3>
-        <div class="desc">Schedules, budgets, timesheets, your team is always
-        up to date.</div>
-        <div class="tags"><span>Schedule</span><span>Budgets</span><span>Reports</span></div>
+      <div class="poster" style="--ph-a:#6e4a8a;--ph-b:#160e22">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-arco.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Arco</div><div class="sub">2D feature</div></div>
       </div>
-      <div class="feature-card">
-        <div class="icon-wrap">
-          <!-- lucide: git-fork -->
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
-        </div>
-        <h3>Plug</h3>
-        <div class="desc">Open API, Python Client, Plugins, fully integrated to
-        your pipeline.</div>
-        <div class="tags"><span>API</span><span>Plugins</span><span>Open source</span></div>
+      <div class="poster" style="--ph-a:#5e4a2f;--ph-b:#1a140c">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-seven-bears.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Seven Bears</div><div class="sub">3D series</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#2f7a5e;--ph-b:#0c1a14">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-wakfu.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Wakfu</div><div class="sub">2D series</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#2f5e7a;--ph-b:#0c141a">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-coop-troop.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Coop Troop</div><div class="sub">3D pre-school</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#7a2f5e;--ph-b:#1a0c16">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Series</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-totally-spies.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Totally Spies</div><div class="sub">2D pre-school</div></div>
       </div>
     </div>
   </section>
 
   <!-- ============= SLIDE 7 — Stakeholders ============= -->
-  <section class="slide" data-slide="7">
+  <section class="slide" data-slide="7" data-duration="9">
     <div class="eyebrow">Built for everyone</div>
     <h1>One tool, <em>every role</em></h1>
     <div class="diagram-wrap">
@@ -1086,7 +1304,7 @@
   </section>
 
   <!-- ============= SLIDE 8 — Studio Sync ============= -->
-  <section class="slide" data-slide="8">
+  <section class="slide" data-slide="8" data-duration="9">
     <div class="eyebrow">Multi-studio, by design</div>
     <h1>One backbone, <em>many studios</em></h1>
     <div class="diagram-wrap">
@@ -1103,120 +1321,233 @@
         <text x="402.5" y="565" text-anchor="middle" font-size="22">Producer</text>
       </svg>
     </div>
-    <div class="sync-caption">Sync tasks, comments and previews across studios
-    and producers.</div>
+    <div class="sync-caption">Each studio keeps its own instance and syncs only
+    what they share.</div>
+  </section>
+
+  <!-- ============= SLIDE 8b — Infrastructure ============= -->
+  <section class="slide slide-infra" data-slide="8b" data-duration="11">
+    <div class="eyebrow">Infrastructure</div>
+    <h1>Distributed by <em>design</em></h1>
+    <div class="features">
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: refresh-cw-off / arrows -->
+          <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-6.7 3"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 6.7-3"/><polyline points="3 3 6 6 3 9"/><polyline points="21 21 18 18 21 15"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3>Targeted sync</h3>
+        <div class="desc">Share only what matters between instances, department by
+        department, project by project.</div>
+        <div class="tags"><span>Selective</span><span>Instance to instance</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: globe -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/></svg>
+        </div>
+        <h3>Multi-region</h3>
+        <div class="desc">Deploy close to your teams across regions for fast,
+        reliable access everywhere.</div>
+        <div class="tags"><span>Low latency</span><span>Worldwide</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: server stack -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01"/><path d="M7 16.5h.01"/></svg>
+        </div>
+        <h3>On-premise</h3>
+        <div class="desc">Run one or multiple isolated instances on your own
+        infrastructure, fully self-hosted.</div>
+        <div class="tags"><span>Self-hosted</span><span>Multi-instance</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= SLIDE 8c — Open source ============= -->
+  <section class="slide" data-slide="8c" data-duration="9">
+    <div class="eyebrow">No lock-in</div>
+    <h1>Run it <em>your way</em></h1>
+    <div class="lead">You get your own instance, deployed however suits you.</div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: cloud -->
+          <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+        </div>
+        <h3>Our cloud</h3>
+        <div class="desc">Hosted and supported by us. Zero ops, always up to date.</div>
+        <div class="tags"><span>Managed</span><span>Always updated</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: building -->
+          <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+        </div>
+        <h3>On-premise</h3>
+        <div class="desc">On your own servers, behind your firewall.</div>
+        <div class="tags"><span>Your servers</span><span>Private</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: server -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01"/><path d="M7 16.5h.01"/></svg>
+        </div>
+        <h3>Self-hosted</h3>
+        <div class="desc">Spin it up yourself, you own the whole stack.</div>
+        <div class="tags"><span>You own it</span><span>Portable</span></div>
+      </div>
+    </div>
+    <div class="pill-row" style="margin-top: 38px">
+      <span>Open source</span>
+      <span><em>600+</em> GitHub stars</span>
+      <span><em>20+</em> contributors</span>
+      <span>Public roadmap</span>
+    </div>
+  </section>
+
+  <!-- ============= SLIDE 8d — Why Kitsu ============= -->
+  <section class="slide" data-slide="8d" data-duration="11">
+    <div class="eyebrow">Coming from another tool?</div>
+    <h1>Why teams <em>switch</em></h1>
+    <div class="features">
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: zap -->
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>The modern one</h3>
+        <div class="desc">Built on today's web standards and shipping every month.
+        No legacy weighing you down.</div>
+        <div class="tags"><span>2026 stack</span><span>Always current</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: user -->
+          <svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Truly ergonomic</h3>
+        <div class="desc">A clean, familiar interface. Teams onboard in days,
+        not months.</div>
+        <div class="tags"><span>Intuitive</span><span>Fast onboarding</span></div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-wrap">
+          <!-- lucide: clapperboard -->
+          <svg viewBox="0 0 24 24"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="m6.2 5.3 3.1 3.9"/><path d="m12.4 3.4 3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+        </div>
+        <h3>Made for animation</h3>
+        <div class="desc">Purpose-built for animation and VFX pipelines, not a
+        generic tracker bent to fit.</div>
+        <div class="tags"><span>Animation &amp; VFX</span><span>Pipeline-native</span></div>
+      </div>
+    </div>
   </section>
 
   <!-- ============= SLIDE 9 — Numbers ============= -->
-  <section class="slide" data-slide="9">
-    <div class="eyebrow">By the numbers</div>
-    <h1>Trusted at every <em>scale</em></h1>
+  <section class="slide" data-slide="9" data-duration="7">
+    <div class="eyebrow">Adoption</div>
+    <h1>Grown by the <em>community</em></h1>
     <div class="numbers-stack">
       <div class="stat">
         <div class="num">400<span class="plus">+</span></div>
         <div class="label">Studios worldwide</div>
-        <div class="desc">From two-person teams to multi-site groups.</div>
+        <div class="desc">On our cloud, on-premise or self-hosted.</div>
+      </div>
+      <div class="stat">
+        <div class="num">25<span class="plus">+</span></div>
+        <div class="label">Schools</div>
+        <div class="desc">Training the next generation directly on Kitsu.</div>
       </div>
       <div class="stat">
         <div class="num">30<span class="plus">+</span></div>
         <div class="label">Countries</div>
-        <div class="desc">Every continent, every timezone.</div>
-      </div>
-      <div class="stat">
-        <div class="num">25k<span class="plus">+</span></div>
-        <div class="label">Daily artists</div>
-        <div class="desc">Animators, supervisors, producers, every day.</div>
+        <div class="desc">Every continent, and not a single sales call.</div>
       </div>
     </div>
   </section>
 
   <!-- ============= SLIDE 10 — Logos ============= -->
-  <section class="slide" data-slide="10">
-    <div class="eyebrow">Working studios</div>
-    <h1>Studios that ship with <em>Kitsu</em></h1>
+  <section class="slide" data-slide="10" data-duration="7">
+    <div class="eyebrow">Studios and schools</div>
+    <h1>Teams that ship with <em>Kitsu</em></h1>
     <div class="logo-grid">
-      <div class="logo-cell"><img src="./assets/logo-client-01.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-02.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-03.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-04.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-05.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-06.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-07.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-08.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-09.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-10.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-11.png" alt="" onerror="this.remove()"></div>
-      <div class="logo-cell"><img src="./assets/logo-client-12.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-miyu.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-bobbypills.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="sm" src="./assets/logo-blender.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-fost.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img src="./assets/logo-monello.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="sm" src="./assets/logo-lofi.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-ankama.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-normaal.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-mdhr.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-ellipse.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="asis" style="max-width:88%;max-height:70%" src="./assets/logo-chouettecie.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/logo-uniko.png" alt="" onerror="this.remove()"></div>
     </div>
   </section>
 
-  <!-- ============= SLIDE 11 — Posters ============= -->
-  <section class="slide" data-slide="11">
-    <div class="eyebrow">Selected productions</div>
+  <!-- ============= SLIDE 10b — Schools ============= -->
+  <section class="slide" data-slide="10b" data-duration="7">
+    <div class="eyebrow">The next generation</div>
+    <h1>Students learn on <em>Kitsu</em></h1>
+    <div class="logo-grid rows2">
+      <div class="logo-cell"><img class="sm" src="./assets/studios/logo-gobelins.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-rubika.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-ecv.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img src="./assets/studios/logo-hslu.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-iim.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-atelier-de-sevres.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-georges-melies.png" alt="" onerror="this.remove()"></div>
+      <div class="logo-cell"><img class="big" src="./assets/studios/logo-esra.png" alt="" onerror="this.remove()"></div>
+    </div>
+  </section>
+
+  <!-- ============= SLIDE 11b — Annecy 2026 nominations ============= -->
+  <section class="slide" data-slide="11b" data-duration="7">
+    <div class="eyebrow">Annecy 2026 official selection</div>
     <div class="poster-row">
-      <div class="poster" style="--ph-a:#3a4a5e;--ph-b:#0f1218">
-        <div class="placeholder">
-          <div class="top"><div class="badge-tiny">Feature · 2025</div></div>
-          <div class="silhouette"></div>
-          <div>
-            <div class="title">Ash</div>
-            <div class="subtitle">Sci-fi horror</div>
-          </div>
-        </div>
-        <img src="./assets/poster-01.jpg" alt="" onerror="this.remove()">
-      </div>
-      <div class="poster" style="--ph-a:#5e3a4a;--ph-b:#160e16">
-        <div class="placeholder">
-          <div class="top"><div class="badge-tiny">Feature · 2023</div></div>
-          <div class="silhouette"></div>
-          <div>
-            <div class="title">Les Trois Mousquetaires</div>
-            <div class="subtitle">D'Artagnan</div>
-          </div>
-        </div>
-        <img src="./assets/poster-02.jpg" alt="" onerror="this.remove()">
-      </div>
-      <div class="poster" style="--ph-a:#3a5e4a;--ph-b:#0c1a14">
-        <div class="placeholder">
-          <div class="top"><div class="badge-tiny">Series · 2024</div></div>
-          <div class="silhouette"></div>
-          <div>
-            <div class="title">Becoming Karl Lagerfeld</div>
-            <div class="subtitle">Biopic, 6 × 50</div>
-          </div>
-        </div>
-        <img src="./assets/poster-03.jpg" alt="" onerror="this.remove()">
+      <div class="poster" style="--ph-a:#7a2f3a;--ph-b:#1a0c0e">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-carmen.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Carmen</div><div class="sub">Tracked with Kitsu</div></div>
       </div>
       <div class="poster" style="--ph-a:#5e553a;--ph-b:#1a160c">
-        <div class="placeholder">
-          <div class="top"><div class="badge-tiny">Feature · 2023</div></div>
-          <div class="silhouette"></div>
-          <div>
-            <div class="title">The Zone of Interest</div>
-            <div class="subtitle">Drama</div>
-          </div>
-        </div>
-        <img src="./assets/poster-04.jpg" alt="" onerror="this.remove()">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-decorado.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Decorado</div><div class="sub">Tracked with Kitsu</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#2f5e7a;--ph-b:#0c141a">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-in-waves.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">In Waves</div><div class="sub">Tracked with Kitsu</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#6e4a3a;--ph-b:#1a0e0c">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-le-corset.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Le Corset</div><div class="sub">Tracked with Kitsu</div></div>
+      </div>
+      <div class="poster" style="--ph-a:#3a5e6e;--ph-b:#0c161a">
+        <div class="placeholder"><div class="top"><div class="badge-tiny">Feature</div></div><div class="silhouette"></div></div>
+        <img src="./assets/poster-lucy-lost.jpg" alt="" onerror="this.remove()">
+        <div class="caption"><div class="title">Lucy Lost</div><div class="sub">Tracked with Kitsu</div></div>
       </div>
     </div>
   </section>
 
   <!-- ============= SLIDE 12 — What's new ============= -->
-  <section class="slide" data-slide="12">
-    <div class="eyebrow">2026 release</div>
+  <section class="slide slide-news" data-slide="12" data-duration="11">
+    <div class="eyebrow">An update for our beloved users</div>
     <h1>What's new in <em>Kitsu</em></h1>
     <div class="news-grid">
       <div class="news-item">
-        <div class="new-pill">NEW</div>
         <div class="icon-wrap">
-          <!-- lucide: landmark -->
-          <svg viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+          <!-- lucide: list-video -->
+          <svg viewBox="0 0 24 24"><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/><path d="m16 12 5 3-5 3v-6Z"/></svg>
         </div>
-        <h3>Budget Management</h3>
-        <p>Plan, track and report production costs alongside the schedule. Real-time burn rate, by department.</p>
+        <h3>Enhanced playlists</h3>
+        <p>Now with guest playlists, faster playback, onion skins, shapes and eraser.</p>
       </div>
       <div class="news-item">
-        <div class="new-pill">NEW</div>
         <div class="icon-wrap">
           <!-- lucide: calendar-clock -->
           <svg viewBox="0 0 24 24"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><path d="M17.5 17.5 16 16.3V14"/><circle cx="16" cy="16" r="6"/></svg>
@@ -1225,7 +1556,6 @@
         <p>Auto-assign tasks based on artist availability, skills and team load. Suggestions, not mandates.</p>
       </div>
       <div class="news-item">
-        <div class="new-pill">NEW</div>
         <div class="icon-wrap">
           <!-- lucide: puzzle -->
           <svg viewBox="0 0 24 24"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77a.98.98 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.61-1.61a2.404 2.404 0 0 1 1.705-.707 2.402 2.402 0 0 1 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg>
@@ -1237,14 +1567,14 @@
   </section>
 
   <!-- ============= SLIDE 13 — Contact ============= -->
-  <section class="slide" data-slide="13">
+  <section class="slide" data-slide="13" data-duration="9">
     <div class="contact-layout">
       <div class="contact-left">
         <img class="kitsu-mark" src="./assets/kitsu.svg" alt="" onerror="this.remove()">
         <div class="eyebrow-c">Come Talk To Us</div>
         <h2>See Kitsu live, <br>ask for a demo</h2>
         <div class="url">www.cg-wire.com/kitsu</div>
-        <div class="booth-line">Booth 1.4 <span class="meta">Hall 1</span></div>
+        <div class="booth-line">Booth A.12</div>
       </div>
       <div class="contact-right">
         <div class="qr-frame">
@@ -1391,6 +1721,7 @@
 
 </div>
 
+
 <!-- Bottom progress + counter -->
 <div class="footer-bar">
   <div class="progress-track"><div class="progress-fill run" id="bar"></div></div>
@@ -1409,7 +1740,7 @@
     const total = document.getElementById('total');
     const dotsEl = document.getElementById('dots');
     const mode = document.getElementById('mode');
-    const DURATION = 10000;
+    let currentDuration = 10000;
     let idx = 0, timer = null, paused = true;
     document.body.classList.add('paused');
 
@@ -1423,19 +1754,28 @@
 
     function activate(i) {
       slides.forEach((s, k) => s.classList.toggle('active', k === i));
+      document.body.classList.toggle('intro-active', i === 0);
       const target = slides[i];
       target.classList.remove('enter');
       void target.offsetWidth;
       target.classList.add('enter');
       dots.forEach((d, k) => d.classList.toggle('on', k === i));
       cur.textContent = String(i + 1).padStart(2, '0');
+      // per-slide duration (data-duration in seconds, fallback 10)
+      currentDuration = (parseFloat(target.dataset.duration) || 10) * 1000;
+      bar.style.animationDuration = (currentDuration / 1000) + 's';
+      // section label from the slide's eyebrow
+      const eb = target.querySelector('.eyebrow, .eyebrow-c');
+      mode.textContent = eb ? eb.textContent.trim() : '';
       bar.classList.remove('run');
       void bar.offsetWidth;
       bar.classList.add('run');
+      // reflect current slide in the URL so a reload lands on the same one
+      try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) { location.hash = i + 1; }
     }
     function schedule() {
       clearTimeout(timer);
-      if (!paused) timer = setTimeout(next, DURATION);
+      if (!paused) timer = setTimeout(next, currentDuration);
     }
     function next() { idx = (idx + 1) % slides.length; activate(idx); schedule(); }
     function prev() { idx = (idx - 1 + slides.length) % slides.length; activate(idx); schedule(); }
@@ -1446,9 +1786,6 @@
           e.preventDefault();
           paused = !paused;
           document.body.classList.toggle('paused', paused);
-          mode.innerHTML = paused
-            ? 'Introduction to Kitsu'
-            : 'Introduction to Kitsu';
           if (paused) clearTimeout(timer);
           else { activate(idx); schedule(); }
           break;
@@ -1462,7 +1799,10 @@
       }
     });
 
-    activate(0);
+    // start on the slide named in the URL (#8 or ?slide=8), else the first
+    const fromUrl = parseInt(location.hash.slice(1) || new URLSearchParams(location.search).get('slide'), 10);
+    idx = (Number.isFinite(fromUrl) && fromUrl >= 1 && fromUrl <= slides.length) ? fromUrl - 1 : 0;
+    activate(idx);
     schedule();
   })();
 </script>
